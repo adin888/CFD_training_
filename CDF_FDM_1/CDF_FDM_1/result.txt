@@ -1,0 +1,3 @@
+Erro details
+L-2 Norm = 0.000192746
+Maximum Norm = 0.000270903

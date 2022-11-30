@@ -1,0 +1,39 @@
+﻿  FTCS_Heat_Equation.cpp
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(14,19): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(23,27): warning C4305: “初始化”: 从“double”到“float”截断
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(24,24): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(24,18): warning C4244: “初始化”: 从“float”转换到“const int”，可能丢失数据
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(27,22): warning C4305: “初始化”: 从“double”到“float”截断
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(28,24): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(28,18): warning C4244: “初始化”: 从“float”转换到“const int”，可能丢失数据
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(30,17): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(40,13): error C2131: 表达式的计算结果不是常数
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(24,24): message : 对未定义的函数或为未声明为“constexpr”的函数的调用导致了故障
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(24,24): message : 请参见“ceil”的用法
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(46,14): error C3863: 不可指定数组类型“float [nx]”
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(47,9): error C2065: “u_n”: 未声明的标识符
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(47,35): error C2668: “sin”: 对重载函数的调用不明确
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\cmath(522,46): message : 可能是“long double sin(long double) noexcept”
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\cmath(256,40): message : 或    “float sin(float) noexcept”
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\corecrt_math.h(481,35): message : 或    “double sin(double)”
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(47,35): message : 尝试匹配参数列表“(float [nx])”时
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(48,9): error C2065: “u_a”: 未声明的标识符
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(48,42): error C2668: “sin”: 对重载函数的调用不明确
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\cmath(522,46): message : 可能是“long double sin(long double) noexcept”
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\cmath(256,40): message : 或    “float sin(float) noexcept”
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt\corecrt_math.h(481,35): message : 或    “double sin(double)”
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(48,42): message : 尝试匹配参数列表“(float [nx])”时
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(51,5): error C2065: “u_n”: 未声明的标识符
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(52,5): error C2065: “u_n”: 未声明的标识符
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(60,13): error C2065: “u_n”: 未声明的标识符
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(60,25): error C2065: “u_n”: 未声明的标识符
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(60,49): error C2065: “u_n”: 未声明的标识符
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(60,75): error C2065: “u_n”: 未声明的标识符
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(60,91): error C2065: “u_n”: 未声明的标识符
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(62,9): error C2065: “u_n”: 未声明的标识符
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(63,9): error C2065: “u_n”: 未声明的标识符
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(68,9): error C2065: “u_erro”: 未声明的标识符
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(68,21): error C2065: “u_n”: 未声明的标识符
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(68,34): error C2065: “u_a”: 未声明的标识符
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(70,42): error C2065: “u_erro”: 未声明的标识符
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(72,30): error C2065: “u_erro”: 未声明的标识符

@@ -1,29 +1,23 @@
 ﻿  FTCS_Heat_Equation.cpp
-C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(13,19): warning C4244: "=": Konvertierung von "double" in "float", möglicher Datenverlust
-C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(22,21): warning C4305: "Initialisierung": Verkürzung von "double" in "float"
-C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(23,12): warning C4244: "Initialisierung": Konvertierung von "float" in "int", möglicher Datenverlust
-C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(26,22): warning C4305: "Initialisierung": Verkürzung von "double" in "float"
-C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(27,12): warning C4244: "Initialisierung": Konvertierung von "float" in "int", möglicher Datenverlust
-C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(29,17): warning C4244: "Initialisierung": Konvertierung von "double" in "float", möglicher Datenverlust
-C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(39,21): warning C4244: "=": Konvertierung von "double" in "float", möglicher Datenverlust
-C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(40,27): warning C4244: "=": Konvertierung von "double" in "float", möglicher Datenverlust
-C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(52,39): warning C4244: "=": Konvertierung von "double" in "float", möglicher Datenverlust
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\algorithm(8856,17): error C2100: Ungültige Dereferenzierung.
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\algorithm(8868): message : Siehe Verweis auf die gerade kompilierte Instanziierung "_FwdIt std::_Max_element_unchecked<_FwdIt,_Fn>(_FwdIt,_FwdIt,_Pr)" der Funktions-Vorlage.
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(13,19): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(22,21): warning C4305: “初始化”: 从“double”到“float”截断
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(23,12): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(26,22): warning C4305: “初始化”: 从“double”到“float”截断
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(27,12): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(29,17): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(44,21): warning C4244: “=”: 从“double”转换到“_Ty”，可能丢失数据
           with
           [
-              _FwdIt=float,
-              _Fn=std::less<void>,
-              _Pr=std::less<void>
+              _Ty=float
           ]
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\algorithm(8874): message : Siehe Verweis auf die gerade kompilierte Instanziierung "_FwdIt std::max_element<_FwdIt,std::less<void>>(_FwdIt,_FwdIt,_Pr)" der Funktions-Vorlage.
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(45,27): warning C4244: “=”: 从“double”转换到“_Ty”，可能丢失数据
           with
           [
-              _FwdIt=float,
-              _Pr=std::less<void>
+              _Ty=float
           ]
-C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(64): message : Siehe Verweis auf die gerade kompilierte Instanziierung "_FwdIt std::max_element<float>(_FwdIt,_FwdIt)" der Funktions-Vorlage.
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(57,39): warning C4244: “=”: 从“double”转换到“_Ty”，可能丢失数据
           with
           [
-              _FwdIt=float
+              _Ty=float
           ]
+  CDF_FDM_1.vcxproj -> C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\Debug\CDF_FDM_1.exe
