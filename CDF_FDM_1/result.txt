@@ -1,3 +1,7 @@
 Erro details with FTCS
 L-2 Norm = 0.000192746
 Maximum Norm = 0.000270903
+
+Runge-Kutta Numerical Scheme
+L-2 Norm = 0.000134568
+Maximum Norm = 0.000189115
