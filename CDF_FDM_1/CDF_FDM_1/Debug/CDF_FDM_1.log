@@ -1,23 +1,6 @@
-﻿  FTCS_Heat_Equation.cpp
-C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(13,19): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(22,21): warning C4305: “初始化”: 从“double”到“float”截断
-C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(23,12): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
-C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(26,22): warning C4305: “初始化”: 从“double”到“float”截断
-C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(27,12): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
-C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(29,17): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(44,21): warning C4244: “=”: 从“double”转换到“_Ty”，可能丢失数据
-          with
-          [
-              _Ty=float
-          ]
-C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(45,27): warning C4244: “=”: 从“double”转换到“_Ty”，可能丢失数据
-          with
-          [
-              _Ty=float
-          ]
-C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\FTCS_Heat_Equation.cpp(57,39): warning C4244: “=”: 从“double”转换到“_Ty”，可能丢失数据
-          with
-          [
-              _Ty=float
-          ]
+﻿  CN_Heat_Equation.cpp
+  RK3_Heat_Equation.cpp
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\RK3_Heat_Equation.cpp(57,12): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\RK3_Heat_Equation.cpp(61,12): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+  正在生成代码...
   CDF_FDM_1.vcxproj -> C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\Debug\CDF_FDM_1.exe

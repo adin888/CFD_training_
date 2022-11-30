@@ -139,8 +139,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CN_Heat_Equation.cpp" />
     <ClCompile Include="FTCS_Heat_Equation.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="math.cpp" />
+    <ClCompile Include="RK3_Heat_Equation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cfd.h" />
