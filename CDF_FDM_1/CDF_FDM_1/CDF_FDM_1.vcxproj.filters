@@ -13,22 +13,34 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Quelldateien\Heat_Equation">
+      <UniqueIdentifier>{bb9632d2-7da7-43ad-b633-5c79c0623067}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\Inviscid Burgers Equation">
+      <UniqueIdentifier>{81389858-5ce6-47d6-88b6-86ca4e0ef29f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="FTCS_Heat_Equation.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="RK3_Heat_Equation.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="math.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="CN_Heat_Equation.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>Quelldateien\Heat_Equation</Filter>
+    </ClCompile>
+    <ClCompile Include="FTCS_Heat_Equation.cpp">
+      <Filter>Quelldateien\Heat_Equation</Filter>
+    </ClCompile>
+    <ClCompile Include="ICP_Heat_Equation.cpp">
+      <Filter>Quelldateien\Heat_Equation</Filter>
+    </ClCompile>
+    <ClCompile Include="RK3_Heat_Equation.cpp">
+      <Filter>Quelldateien\Heat_Equation</Filter>
+    </ClCompile>
+    <ClCompile Include="WENO5_IB_Equation.cpp">
+      <Filter>Quelldateien\Inviscid Burgers Equation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

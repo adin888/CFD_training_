@@ -5,3 +5,8 @@ Maximum Norm = 0.000270903
 Runge-Kutta Numerical Scheme
 L-2 Norm = 0.000134568
 Maximum Norm = 0.000189115
+
+
+Implicit Compact Pade (ICP) Scheme
+L-2 Norm = 9.4827e-08
+Maximum Norm = 1.33265e-07

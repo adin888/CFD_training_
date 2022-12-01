@@ -1,7 +1,7 @@
 #include"cfd.h"
 
 /*
-With Runge-Kutta Numerical Scheme
+*With Runge-Kutta Numerical Scheme
 */
 
 using namespace std;
@@ -16,7 +16,7 @@ vector< vector<double> > numerical(int nx, int nt, double dx, double dt, vector<
         u_nn[i] = -sin(PI * x[i]);           //initial condition for u_n and u_nn
         u_n[0][i] = u_nn[i];
     }
-
+    /*boundary conditions*/
     u_nn[0] = 0.0;
     u_nn[nx] = 0.0;
     u_nt[0] = 0.0;
