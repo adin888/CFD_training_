@@ -17,19 +17,6 @@ double compute_l2norm(int nx, vector<double> erro)
 }
 
 /*
-* Calculate right hand term of the inviscid Burgers equation
-* r = -udu/dx
-*/
-vector<double> rhs(int nx, double dx, double dt, vector<double> u, vector<double> r, double alpha)
-{
-    for (int i = 1; i < nx; i++)
-    {
-        r[i] = alpha * dt * (u[i + 1] - 2.0 * u[i] + u[i - 1]) / (dx * dx);
-    }
-    return r;
-}
-
-/*
 * Tridiagonal matrix algorithm(Thomas algorithm) Au=d, A is a matrix containing a_i,b_i,c_i
 */
 vector<double> tdms(vector<double> a, vector<double> b, vector<double> c, vector<double> d, int start, int end)

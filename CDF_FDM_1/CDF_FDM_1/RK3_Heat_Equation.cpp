@@ -5,6 +5,20 @@
 */
 
 using namespace std;
+
+/*
+* Calculate right hand term of the inviscid Burgers equation
+* r = alpha d^2u/dx^2
+*/
+vector<double> rhs(int nx, double dx, vector<double> u, vector<double> r, double alpha)
+{
+    for (int i = 1; i < nx; i++)
+    {
+        r[i] = alpha * (u[i + 1] - 2.0 * u[i] + u[i - 1]) / (dx * dx);
+    }
+    return r;
+}
+
 vector< vector<double> > numerical(int nx, int nt, double dx, double dt, vector<double> x, vector< vector<double> > u_n, double alpha)
 {
     vector<double> u_nn(nx + 1);
@@ -24,22 +38,22 @@ vector< vector<double> > numerical(int nx, int nt, double dx, double dt, vector<
 
     for (int j = 1; j < nt + 1; j++)
     {
-        r = rhs(nx, dx, dt, u_nn, r, alpha);
+        r = rhs(nx, dx, u_nn, r, alpha);
         for (int i = 1; i < nx; i++)
         {
-            u_nt[i] = u_nn[i] + r[i];
+            u_nt[i] = u_nn[i] + dt*r[i];
         }
 
-        r = rhs(nx, dx, dt, u_nt, r, alpha);
+        r = rhs(nx, dx, u_nt, r, alpha);
         for (int i = 1; i < nx; i++)
         {
-            u_nt[i] = 0.75 * u_nn[i] + 0.25 * u_nt[i] + 0.25 * r[i];
+            u_nt[i] = 0.75 * u_nn[i] + 0.25 * u_nt[i] + 0.25 * dt*r[i];
         }
 
-        r = rhs(nx, dx, dt, u_nt, r, alpha);
+        r = rhs(nx, dx, u_nt, r, alpha);
         for (int i = 1; i < nx; i++)
         {
-            u_nn[i] = (1.0 / 3.0) * u_nn[i] + (2.0 / 3.0) * u_nt[i] + (2.0 / 3.0) * r[i];
+            u_nn[i] = (1.0 / 3.0) * u_nn[i] + (2.0 / 3.0) * u_nt[i] + (2.0 / 3.0) * dt*r[i];
         }
 
         for (int i = 0; i < nx + 1; i++)
@@ -49,6 +63,7 @@ vector< vector<double> > numerical(int nx, int nt, double dx, double dt, vector<
     }
     return u_n;
 }
+
 void Runge_Heat_Equation()
 {
     double x_l = -1.0;
