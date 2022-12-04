@@ -46,5 +46,5 @@ C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\WENO5_IB_Equation.cp
 C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\WENO5_IB_Equation.cpp(201,11): warning C4834: 放弃具有 "nodiscard" 属性的函数的返回值
 C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\WENO5_IB_Equation.cpp(202,11): warning C4834: 放弃具有 "nodiscard" 属性的函数的返回值
 C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\WENO5_IB_Equation.cpp(203,13): warning C4834: 放弃具有 "nodiscard" 属性的函数的返回值
-C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\WENO5_IB_Equation.cpp(242,12): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\CDF_FDM_1\WENO5_IB_Equation.cpp(246,12): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
   CDF_FDM_1.vcxproj -> C:\Users\Administrator\source\repos\CFD\CDF_FDM_1\Debug\CFD_FDM_1.exe

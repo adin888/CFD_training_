@@ -3,6 +3,7 @@
 /*
 * -Using WENO-5 Scheme for spatial terms
 * -Using Runge-Kutta-3 Scheme for time integration
+* -Data is saved every 0.025s
 */
 using namespace std;
 
@@ -79,15 +80,15 @@ vector<double> weno5L(int nx, vector<double>u, vector<double>uL)
 
     /* Ghost points with Dirichlet condition*/
     int i = 0;
-    u1 = 3.0 * u[i] - 2.0 * u[i + 1];
-    u2 = 2.0 * u[i] - u[i + 1];
+    u1 = 3.0 * u[i] - 2.0 * u[i + 1];          //periodic condition = u[nx-2]
+    u2 = 2.0 * u[i] - u[i + 1];                //periodic condition = u[nx-1]
     u3 = u[i];
     u4 = u[i + 1];
     u5 = u[i + 2];
     uL[i] = wL(u1, u2, u3, u4, u5);
 
     i = 1;
-    u1 = 2.0 * u[i - 1] - u[i];
+    u1 = 2.0 * u[i - 1] - u[i];                //periodic condition = u[nx-1]
     u2 = u[i - 1];
     u3 = u[i];
     u4 = u[i + 1];
@@ -109,7 +110,7 @@ vector<double> weno5L(int nx, vector<double>u, vector<double>uL)
     u2 = u[i - 1];
     u3 = u[i];
     u4 = u[i + 1];
-    u5 = 2.0 * u[i + 1] - u[i];
+    u5 = 2.0 * u[i + 1] - u[i];                //periodic condition = u[1]
     uL[i] = wL(u1, u2, u3, u4, u5);
     return uL;
 }
@@ -122,7 +123,7 @@ vector<double> weno5R(int nx, vector<double>u, vector<double>uR)
     double u1, u2, u3, u4, u5;              //Reconstruction with 5 points
 
     int i = 1;
-    u1 = 2.0 * u[i - 1] - u[i];
+    u1 = 2.0 * u[i - 1] - u[i];                //periodic condition = u[nx-1]
     u2 = u[i - 1];
     u3 = u[i];
     u4 = u[i + 1];
@@ -144,15 +145,15 @@ vector<double> weno5R(int nx, vector<double>u, vector<double>uR)
     u2 = u[i - 1];
     u3 = u[i];
     u4 = u[i + 1];
-    u5 = 2 * u[i + 1] - u[i];
+    u5 = 2 * u[i + 1] - u[i];                //periodic condition = u[1]
     uR[i] = wR(u1, u2, u3, u4, u5);
 
     i = nx;
     u1 = u[i - 2];
     u2 = u[i - 1];
     u3 = u[i];
-    u4 = 2.0 * u[i] - u[i - 1];
-    u5 = 3.0 * u[i] - 2.0 * u[i - 1];
+    u4 = 2.0 * u[i] - u[i - 1];                //periodic condition = u[1]
+    u5 = 3.0 * u[i] - 2.0 * u[i - 1];                //periodic condition = u[2]
     uR[i] = wR(u1, u2, u3, u4, u5);
     return uR;
 }
@@ -180,6 +181,16 @@ vector<double> rhs_weno5(int nx, double dx, vector<double> u, vector<double> r)
             r[i] = -u[i] * (u_R[i+1] - u_R[i]) / dx;
         }
     }
+    /* periodic condition
+    if (u[0]>=0.0)
+        {
+            r[0] = -u[0] * (u_L[0] - u_L[nx - 1]) / dx;
+        }
+        else
+        {
+            r[0] = -u[0] * (u_R[1] - u_R[nx]) / dx;
+        }
+    */
     return r;
 }
 
@@ -210,11 +221,15 @@ vector< vector<double> > numerical_weno5(int nx, int ns, int nt, double dx, doub
             u_nt[i] = u_nn[i] + dt * r[i];
         }
 
+        //u_nt[nx]=u_nt[0];   //periodic condition
+
         r = rhs_weno5(nx, dx, u_nt, r);
         for (int i = 1; i < nx; i++)
         {
             u_nt[i] = 0.75 * u_nn[i] + 0.25 * u_nt[i] + 0.25 * dt * r[i];
         }
+
+        //u_nt[nx]=u_nt[0];   //periodic condition
 
         r = rhs_weno5(nx, dx, u_nt, r);
         for (int i = 1; i < nx; i++)
@@ -222,10 +237,16 @@ vector< vector<double> > numerical_weno5(int nx, int ns, int nt, double dx, doub
             u_nn[i] = (1.0 / 3.0) * u_nn[i] + (2.0 / 3.0) * u_nt[i] + (2.0 / 3.0) * dt * r[i];
         }
 
-        for (int i = 0; i < nx + 1; i++)
+        //u_nt[nx]=u_nt[0];   //periodic condition
+
+        if (j%freq == 0)
         {
-            u_n[j][i] = u_nn[i];
+            for (int i = 0; i < nx + 1; i++)
+            {
+                u_n[j/freq][i] = u_nn[i];
+            }
         }
+
     }
     return u_n;
 }
@@ -245,7 +266,7 @@ void WENO5_IB_Equation()
     double ds = t / ns;          //The time interval for saving data
 
     vector<double> x(nx + 1);
-    vector< vector<double> > u_n(nt + 1, vector<double>(nx + 1));
+    vector< vector<double> > u_n(ns + 1, vector<double>(nx + 1));
 
     for (int i = 0; i < nx + 1; i++)
     {
@@ -256,10 +277,21 @@ void WENO5_IB_Equation()
 
     ofstream field;
     field.open("field_final.csv", ios::out | ios::trunc);
-    field << "x" << "," << "u_n" << endl;
+    field << "x" << ",";
+    for (int i = 0; i < ns + 1; i++)
+    {
+        field << i * ds << ",";
+    }
+    field << endl;
+
     for (int i = 0; i < nx + 1; i++)
     {
-        field << setprecision(16) << x[i] << "," << u_n[nt][i] << endl;
+        field << setprecision(16) << x[i] << ",";
+        for (int j = 0; j < ns + 1; j++)
+        {
+            field << setprecision(16) << u_n[j][i] << ",";
+        }
+        field << endl;
     }
 
     field.close();
