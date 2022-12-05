@@ -17,12 +17,46 @@ double compute_l2norm(int nx, vector<double> erro)
 }
 
 /*
-* Tridiagonal matrix algorithm(Thomas algorithm) Au=d, A is a matrix containing a_i,b_i,c_i
+* -Solution to tridigonal system using cyclic Thomas algorithm(with Sherman-Morrison formula)
 */
-vector<double> tdms(vector<double> a, vector<double> b, vector<double> c, vector<double> d, int start, int end)
+vector<double> ctdms(vector<double> a, vector<double> b, vector<double> c, double alpha, double beta,
+                    vector<double> d, vector<double> u,int start, int end)
+{
+    vector<double> bb(end);
+    vector<double> p(end, 0.0);
+    vector<double> y(end);
+    vector<double> z(end);
+
+    double gamma = -b[start];
+    bb[start] = b[start] - gamma;
+    bb[end-1] = b[end-1] - alpha * beta / gamma;
+
+    for (int i = start+1; i < end; i++)
+    {
+        bb[i] = b[i];
+    }
+
+    y = tdms(a, bb, c, d, y, start, end);
+
+    p[start] = gamma;
+    p[end-1] = alpha;
+
+    z = tdms(a, bb, c, p, z, start, end);
+
+    double f = (y[start] + beta * y[end-1] / gamma) / (1.0 + z[start] + beta * z[end-1] / gamma);
+
+    for (int i = start; i < end; i++)
+    {
+        u[i] = y[i] - f * z[i];
+    }
+    return u;
+}
+/*
+* -Tridiagonal matrix algorithm(Thomas algorithm) Au=d, A is a matrix containing a_i,b_i,c_i
+*/
+vector<double> tdms(vector<double> a, vector<double> b, vector<double> c, vector<double> d, vector<double> u, int start, int end)
 {
     vector<double> q(end);                    //Storage of superdiagonal array
-    vector<double> u(end + 1, 0.0);
     double b_tem = b[start];                  //Temporary storage of b
     u[start] = d[start] / b_tem;
     /*

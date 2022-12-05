@@ -6,6 +6,7 @@ int main()
 	//Runge_Heat_Equation();
 	//CN_Heat_Equation();
 	//ICP_Heat_Equation();
-	WENO5_IB_Equation();
+	//WENO5_IB_Equation();
+	CRWENO5_IB_Equation();
 	return 0;
 }

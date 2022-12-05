@@ -11,10 +11,9 @@ using namespace std;
 /*
 * nonlinear weights for upwind direction
 */
-float crwL(float u1, float u2, float u3, float u4, float u5)
+vector<double> crwL(float u1, float u2, float u3, float u4, float u5, vector<double> coeff)
 {
     double eps = 1.0e-6;
-    double u_L;
 
     /* smoothness indicators */
     double s1 = pow((13.0 / 12.0) * (u1 - 2.0 * u2 + u3), 2) + pow(0.25 * (u1 - 4.0 * u2 + 3.0 * u3), 2);
@@ -33,24 +32,23 @@ float crwL(float u1, float u2, float u3, float u4, float u5)
     double w2 = c2 / (c1 + c2 + c3);
     double w3 = c3 / (c1 + c2 + c3);
 
-    double a1 = (2.0 * w1 + w2) / 3.0;
-    double a2 = (w1 + 2.0 * w2 + 2.0 * w3) / 3.0;
-    double a3 = w3 / 3.0;
+    coeff[0] = (2.0 * w1 + w2) / 3.0;
+    coeff[1] = (w1 + 2.0 * w2 + 2.0 * w3) / 3.0;
+    coeff[2] = w3 / 3.0;
 
-    double b1 = w1 / 6.0;
-    double b2 = (5.0 * w1 + 5.0 * w2 + w3) / 6.0;
-    double b3 = (w2 + 5.0 * w3) / 6.0;
+    coeff[3] = w1 / 6.0;
+    coeff[4] = (5.0 * w1 + 5.0 * w2 + w3) / 6.0;
+    coeff[5] = (w2 + 5.0 * w3) / 6.0;
 
-    return a1, a2, a3, b1, b2, b3;
+    return coeff;
 }
 
 /*
 * nonlinear weights for downwind direction
 */
-float crwR(float u1, float u2, float u3, float u4, float u5)
+vector<double> crwR(float u1, float u2, float u3, float u4, float u5, vector<double> coeff)
 {
     double eps = 1.0e-6;
-    double u_R;
 
     /* smoothness indicators */
     double s1 = pow((13.0 / 12.0) * (u1 - 2.0 * u2 + u3), 2) + pow(0.25 * (u1 - 4.0 * u2 + 3.0 * u3), 2);
@@ -69,40 +67,66 @@ float crwR(float u1, float u2, float u3, float u4, float u5)
     double w2 = c2 / (c1 + c2 + c3);
     double w3 = c3 / (c1 + c2 + c3);
 
-    double a1 = w1 / 3.0;
-    double a2 = (w3 + 2.0 * w2 + 2.0 * w1) / 3.0;
-    double a3 = (2.0 * w3 + w2) / 3.0;
+    /**/
+    coeff[0] = w1 / 3.0;
+    coeff[1] = (w3 + 2.0 * w2 + 2.0 * w1) / 3.0;
+    coeff[2] = (2.0 * w3 + w2) / 3.0;
 
-    double b1 = (w2 + 5.0 * w1) / 6.0;
-    double b2 = (5.0 * w3 + 5.0 * w2 + w1) / 6.0;
-    double b3 = w3 / 6.0;
+    coeff[3] = (w2 + 5.0 * w1) / 6.0;
+    coeff[4] = (5.0 * w3 + 5.0 * w2 + w1) / 6.0;
+    coeff[5] = w3 / 6.0;
+    
 
-    return a1, a2, a3, b1, b2, b3;
+    /*
+    coeff[0] = w3 / 3.0;
+    coeff[1] = (w1 + 2.0 * w2 + 2.0 * w3) / 3.0;
+    coeff[2] = (2.0 * w1 + w2) / 3.0;
+
+    coeff[3] = w1 / 6.0;
+    coeff[4] = (5.0 * w1 + 5.0 * w2 + w3) / 6.0;
+    coeff[5] = (w2 + 5.0 * w3) / 6.0;
+    */
+    return coeff;
 }
 
 /*
 * WENO reconstruction for upwind methode
 */
-vector<double> weno5L(int nx, vector<double>u, vector<double>uL)
+vector<double> crweno5L(int nx, vector<double>u, vector<double>uL)
 {
+    vector<double> a(nx);                    //subdiagonal array of tridiagonal matrix
+    vector<double> b(nx);                    //diagonal array of tridiagonal matrix
+    vector<double> c(nx);                    //superdiagonal array of tridiagonal matrix
+    vector<double> r(nx);
+    vector<double> coeff(6);
     double u1, u2, u3, u4, u5;              //Reconstruction with 5 points
 
-    /* Ghost points with Dirichlet condition*/
+    /* Ghost points with periodic condition*/
     int i = 0;
-    u1 = 3.0 * u[i] - 2.0 * u[i + 1];          //periodic condition = u[nx-2]
-    u2 = 2.0 * u[i] - u[i + 1];                //periodic condition = u[nx-1]
+    u1 = u[nx - 2];
+    u2 = u[nx - 1];
     u3 = u[i];
     u4 = u[i + 1];
     u5 = u[i + 2];
-    uL[i] = wL(u1, u2, u3, u4, u5);
+
+    coeff = crwL(u1, u2, u3, u4, u5, coeff);
+    a[i] = coeff[0];
+    b[i] = coeff[1];
+    c[i] = coeff[2];
+    r[i] = coeff[3] * u[nx - 1] + coeff[4] * u[i] + coeff[5] * u[i + 1];
 
     i = 1;
-    u1 = 2.0 * u[i - 1] - u[i];                //periodic condition = u[nx-1]
+    u1 = u[nx - 1];
     u2 = u[i - 1];
     u3 = u[i];
     u4 = u[i + 1];
     u5 = u[i + 2];
-    uL[i] = wL(u1, u2, u3, u4, u5);
+
+    coeff = crwL(u1, u2, u3, u4, u5, coeff);
+    a[i] = coeff[0];
+    b[i] = coeff[1];
+    c[i] = coeff[2];
+    r[i] = coeff[3] * u[i - 1] + coeff[4] * u[i] + coeff[5] * u[i + 1];
 
     for (int i = 2; i < nx - 1; i++)
     {
@@ -111,7 +135,12 @@ vector<double> weno5L(int nx, vector<double>u, vector<double>uL)
         u3 = u[i];
         u4 = u[i + 1];
         u5 = u[i + 2];
-        uL[i] = wL(u1, u2, u3, u4, u5);
+        
+        coeff = crwL(u1, u2, u3, u4, u5, coeff);
+        a[i] = coeff[0];
+        b[i] = coeff[1];
+        c[i] = coeff[2];
+        r[i] = coeff[3] * u[i - 1] + coeff[4] * u[i] + coeff[5] * u[i + 1];
     }
 
     i = nx - 1;
@@ -119,25 +148,46 @@ vector<double> weno5L(int nx, vector<double>u, vector<double>uL)
     u2 = u[i - 1];
     u3 = u[i];
     u4 = u[i + 1];
-    u5 = 2.0 * u[i + 1] - u[i];                //periodic condition = u[1]
-    uL[i] = wL(u1, u2, u3, u4, u5);
+    u5 = u[1];
+    
+    coeff = crwL(u1, u2, u3, u4, u5, coeff);
+    a[i] = coeff[0];
+    b[i] = coeff[1];
+    c[i] = coeff[2];
+    r[i] = coeff[3] * u[i - 1] + coeff[4] * u[i] + coeff[5] * u[i + 1];
+
+    double alpha = c[nx - 1];
+    double beta = a[0];
+
+    uL = ctdms(a, b, c, alpha, beta, r, uL, 0, nx - 1);
+
     return uL;
 }
 
 /*
 * WENO reconstruction for downwind methode
 */
-vector<double> weno5R(int nx, vector<double>u, vector<double>uR)
+vector<double> crweno5R(int nx, vector<double>u, vector<double>uR)
 {
+    vector<double> a(nx + 1);                    //subdiagonal array of tridiagonal matrix
+    vector<double> b(nx + 1);                    //diagonal array of tridiagonal matrix
+    vector<double> c(nx + 1);                    //superdiagonal array of tridiagonal matrix
+    vector<double> r(nx + 1);
+    vector<double> coeff(6);
     double u1, u2, u3, u4, u5;              //Reconstruction with 5 points
 
     int i = 1;
-    u1 = 2.0 * u[i - 1] - u[i];                //periodic condition = u[nx-1]
+    u1 = u[nx - 1];
     u2 = u[i - 1];
     u3 = u[i];
     u4 = u[i + 1];
     u5 = u[i + 2];
-    uR[i] = wR(u1, u2, u3, u4, u5);
+
+    coeff = crwL(u1, u2, u3, u4, u5, coeff);
+    a[i] = coeff[0];
+    b[i] = coeff[1];
+    c[i] = coeff[2];
+    r[i] = coeff[3] * u[i - 1] + coeff[4] * u[i] + coeff[5] * u[i + 1];
 
     for (int i = 2; i < nx - 1; i++)
     {
@@ -146,7 +196,12 @@ vector<double> weno5R(int nx, vector<double>u, vector<double>uR)
         u3 = u[i];
         u4 = u[i + 1];
         u5 = u[i + 2];
-        uR[i] = wR(u1, u2, u3, u4, u5);
+        
+        coeff = crwL(u1, u2, u3, u4, u5, coeff);
+        a[i] = coeff[0];
+        b[i] = coeff[1];
+        c[i] = coeff[2];
+        r[i] = coeff[3] * u[i - 1] + coeff[4] * u[i] + coeff[5] * u[i + 1];
     }
 
     i = nx - 1;
@@ -154,16 +209,32 @@ vector<double> weno5R(int nx, vector<double>u, vector<double>uR)
     u2 = u[i - 1];
     u3 = u[i];
     u4 = u[i + 1];
-    u5 = 2 * u[i + 1] - u[i];                //periodic condition = u[1]
-    uR[i] = wR(u1, u2, u3, u4, u5);
+    u5 = u[1];
+    
+    coeff = crwL(u1, u2, u3, u4, u5, coeff);
+    a[i] = coeff[0];
+    b[i] = coeff[1];
+    c[i] = coeff[2];
+    r[i] = coeff[3] * u[i - 1] + coeff[4] * u[i] + coeff[5] * u[i + 1];
 
     i = nx;
     u1 = u[i - 2];
     u2 = u[i - 1];
     u3 = u[i];
-    u4 = 2.0 * u[i] - u[i - 1];                //periodic condition = u[1]
-    u5 = 3.0 * u[i] - 2.0 * u[i - 1];                //periodic condition = u[2]
-    uR[i] = wR(u1, u2, u3, u4, u5);
+    u4 = u[1];
+    u5 = u[2];
+    
+    coeff = crwL(u1, u2, u3, u4, u5, coeff);
+    a[i] = coeff[0];
+    b[i] = coeff[1];
+    c[i] = coeff[2];
+    r[i] = coeff[3] * u[i - 1] + coeff[4] * u[i] + coeff[5] * u[1];
+
+    double alpha = c[nx];
+    double beta = a[1];
+
+    uR = ctdms(a, b, c, alpha, beta, r, uR, 1, nx);
+
     return uR;
 }
 
@@ -171,13 +242,13 @@ vector<double> weno5R(int nx, vector<double>u, vector<double>uR)
 * Calculate right hand term of the inviscid Burgers equation
 * r = -udu/dx
 */
-vector<double> rhs_weno5(int nx, double dx, vector<double> u, vector<double> r)
+vector<double> rhs_crweno5(int nx, double dx, vector<double> u, vector<double> r)
 {
     vector<double> u_L(nx);
     vector<double>u_R(nx + 1);
 
-    u_L = weno5L(nx, u, u_L);
-    u_R = weno5R(nx, u, u_R);
+    u_L = crweno5L(nx, u, u_L);
+    u_R = crweno5R(nx, u, u_R);
 
     for (int i = 1; i < nx; i++)
     {
@@ -190,20 +261,21 @@ vector<double> rhs_weno5(int nx, double dx, vector<double> u, vector<double> r)
             r[i] = -u[i] * (u_R[i + 1] - u_R[i]) / dx;
         }
     }
-    /* periodic condition
+    /* 
+    * - periodic condition
+    */
     if (u[0]>=0.0)
         {
             r[0] = -u[0] * (u_L[0] - u_L[nx - 1]) / dx;
         }
-        else
+    else
         {
             r[0] = -u[0] * (u_R[1] - u_R[nx]) / dx;
         }
-    */
     return r;
 }
 
-vector< vector<double> > numerical_weno5(int nx, int ns, int nt, double dx, double dt, vector<double> x, vector< vector<double> > u_n)
+vector< vector<double> > numerical_crweno5(int nx, int ns, int nt, double dx, double dt, vector<double> x, vector< vector<double> > u_n)
 {
     vector<double> u_nn(nx + 1);
     vector<double> u_nt(nx + 1);
@@ -217,36 +289,33 @@ vector< vector<double> > numerical_weno5(int nx, int ns, int nt, double dx, doub
         u_n[0][i] = u_nn[i];
     }
 
-    /* Dirichlet boundary condition*/
-    u_nn[0], u_nn[nx] = 0.0, 0.0;
-    u_nt[0], u_nt[nx] = 0.0, 0.0;
-    u_n[0][0], u_n[0][nx] = 0.0, 0.0;
-
     for (int j = 1; j < nt + 1; j++)
     {
-        r = rhs_weno5(nx, dx, u_nn, r);
+        r = rhs_crweno5(nx, dx, u_nn, r);
+
         for (int i = 1; i < nx; i++)
         {
             u_nt[i] = u_nn[i] + dt * r[i];
         }
 
-        //u_nt[nx]=u_nt[0];   //periodic condition
+        u_nt[nx] = u_nt[0];   //periodic condition
 
-        r = rhs_weno5(nx, dx, u_nt, r);
+        r = rhs_crweno5(nx, dx, u_nt, r);
+
         for (int i = 1; i < nx; i++)
         {
             u_nt[i] = 0.75 * u_nn[i] + 0.25 * u_nt[i] + 0.25 * dt * r[i];
         }
 
-        //u_nt[nx]=u_nt[0];   //periodic condition
+        u_nt[nx] = u_nt[0];   //periodic condition
 
-        r = rhs_weno5(nx, dx, u_nt, r);
+        r = rhs_crweno5(nx, dx, u_nt, r);
         for (int i = 1; i < nx; i++)
         {
             u_nn[i] = (1.0 / 3.0) * u_nn[i] + (2.0 / 3.0) * u_nt[i] + (2.0 / 3.0) * dt * r[i];
         }
 
-        //u_nt[nx]=u_nt[0];   //periodic condition
+        u_nn[nx] = u_nn[0];   //periodic condition
 
         if (j % freq == 0)
         {
@@ -260,7 +329,7 @@ vector< vector<double> > numerical_weno5(int nx, int ns, int nt, double dx, doub
     return u_n;
 }
 
-void WENO5_IB_Equation()
+void CRWENO5_IB_Equation()
 {
     double x_l = 0.0;
     double x_r = 1.0;
@@ -282,7 +351,7 @@ void WENO5_IB_Equation()
         x[i] = x_l + dx * i;  //Assign node locations
     }
 
-    u_n = numerical_weno5(nx, ns, nt, dx, dt, x, u_n);
+    u_n = numerical_crweno5(nx, ns, nt, dx, dt, x, u_n);
 
     ofstream field;
     field.open("field_final.csv", ios::out | ios::trunc);

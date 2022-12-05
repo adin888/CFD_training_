@@ -69,7 +69,7 @@ void CN_Heat_Equation()
             d[i] = beta * u_n[j - 1][i + 1] + (1.0 - 2.0 * beta) * u_n[j - 1][i] + beta * u_n[j - 1][i - 1];
         }
 
-        u_tem = tdms(a, b, c, d, start, end);
+        u_tem = tdms(a, b, c, d, u_tem, start, end);
 
         for (int i = 0; i < nx + 1; i++)
         {

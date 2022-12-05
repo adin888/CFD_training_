@@ -68,7 +68,7 @@ void ICP_Heat_Equation()
                 - 12.0 / (dx * dx) * (u_n[j - 1][i + 1] - 2.0 * u_n[j - 1][i] + u_n[j - 1][i - 1]);
         }
 
-        u_tem = tdms(a, b, c, d, start, end);
+        u_tem = tdms(a, b, c, d, u_tem, start, end);
 
         for (int i = 0; i < nx + 1; i++)
         {
