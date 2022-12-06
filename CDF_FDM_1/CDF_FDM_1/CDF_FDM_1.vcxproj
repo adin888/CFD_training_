@@ -142,6 +142,7 @@
   <ItemGroup>
     <ClCompile Include="CN_Heat_Equation.cpp" />
     <ClCompile Include="CRWENO_5_IB_Equation.cpp" />
+    <ClCompile Include="Flux_WENO5_IB_Equation.cpp" />
     <ClCompile Include="FTCS_Heat_Equation.cpp" />
     <ClCompile Include="ICP_Heat_Equation.cpp" />
     <ClCompile Include="main.cpp" />

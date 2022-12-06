@@ -245,7 +245,7 @@ vector<double> crweno5R(int nx, vector<double>u, vector<double>uR)
 vector<double> rhs_crweno5(int nx, double dx, vector<double> u, vector<double> r)
 {
     vector<double> u_L(nx);
-    vector<double>u_R(nx + 1);
+    vector<double> u_R(nx + 1);
 
     u_L = crweno5L(nx, u, u_L);
     u_R = crweno5R(nx, u, u_R);
