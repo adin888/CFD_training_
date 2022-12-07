@@ -48,6 +48,9 @@
     <ClCompile Include="Flux_WENO5_IB_Equation.cpp">
       <Filter>Quelldateien\Inviscid Burgers Equation</Filter>
     </ClCompile>
+    <ClCompile Include="Rieman_WENO5_IB_Equation.cpp">
+      <Filter>Quelldateien\Inviscid Burgers Equation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cfd.h">

@@ -171,7 +171,7 @@ vector<double> rhs_fweno5(int nx, double dx, vector<double> u, vector<double> r)
     fL = fweno5L(nx, fP, fL);
     fR = fweno5R(nx, fN, fR);
 
-    for (int i = 1; i < nx; i++)
+    for (int i = 0; i < nx; i++)
     {
         r[i] = -(fL[i + 1] - fL[i]) / dx - (fR[i + 1] - fR[i]) / dx;
     }
@@ -196,19 +196,19 @@ vector< vector<double> > numerical_fweno5(int nx, int ns, int nt, double dx, dou
     for (int j = 1; j < nt + 1; j++)
     {
         r = rhs_fweno5(nx, dx, u_nn, r);
-        for (int i = 1; i < nx; i++)
+        for (int i = 0; i < nx; i++)
         {
             u_nt[i] = u_nn[i] + dt * r[i];
         }
 
         r = rhs_fweno5(nx, dx, u_nt, r);
-        for (int i = 1; i < nx; i++)
+        for (int i = 0; i < nx; i++)
         {
             u_nt[i] = 0.75 * u_nn[i] + 0.25 * u_nt[i] + 0.25 * dt * r[i];
         }
 
         r = rhs_fweno5(nx, dx, u_nt, r);
-        for (int i = 1; i < nx; i++)
+        for (int i = 0; i < nx; i++)
         {
             u_nn[i] = (1.0 / 3.0) * u_nn[i] + (2.0 / 3.0) * u_nt[i] + (2.0 / 3.0) * dt * r[i];
         }
@@ -244,7 +244,7 @@ void Flux_WENO5_IB_Equation()
 
     for (int i = 0; i < nx; i++)
     {
-        x[i] = x_l + dx * i;  //Assign node locations
+        x[i] = x_l + dx * i + 0.5 * dx;  //Assign node locations
     }
 
     u_n = numerical_fweno5(nx, ns, nt, dx, dt, x, u_n);

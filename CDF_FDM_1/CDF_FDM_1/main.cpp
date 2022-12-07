@@ -8,6 +8,7 @@ int main()
 	//ICP_Heat_Equation();
 	//WENO5_IB_Equation();
 	//CRWENO5_IB_Equation();
-	Flux_WENO5_IB_Equation();
+	//Flux_WENO5_IB_Equation();
+	Rieman_WENO5_IB_Equation();
 	return 0;
 }

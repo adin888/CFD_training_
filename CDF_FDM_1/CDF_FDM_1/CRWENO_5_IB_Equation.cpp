@@ -293,7 +293,7 @@ vector< vector<double> > numerical_crweno5(int nx, int ns, int nt, double dx, do
     {
         r = rhs_crweno5(nx, dx, u_nn, r);
 
-        for (int i = 1; i < nx; i++)
+        for (int i = 0; i < nx; i++)
         {
             u_nt[i] = u_nn[i] + dt * r[i];
         }
@@ -302,7 +302,7 @@ vector< vector<double> > numerical_crweno5(int nx, int ns, int nt, double dx, do
 
         r = rhs_crweno5(nx, dx, u_nt, r);
 
-        for (int i = 1; i < nx; i++)
+        for (int i = 0; i < nx; i++)
         {
             u_nt[i] = 0.75 * u_nn[i] + 0.25 * u_nt[i] + 0.25 * dt * r[i];
         }
@@ -310,7 +310,7 @@ vector< vector<double> > numerical_crweno5(int nx, int ns, int nt, double dx, do
         u_nt[nx] = u_nt[0];   //periodic condition
 
         r = rhs_crweno5(nx, dx, u_nt, r);
-        for (int i = 1; i < nx; i++)
+        for (int i = 0; i < nx; i++)
         {
             u_nn[i] = (1.0 / 3.0) * u_nn[i] + (2.0 / 3.0) * u_nt[i] + (2.0 / 3.0) * dt * r[i];
         }

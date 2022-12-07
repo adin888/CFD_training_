@@ -147,6 +147,7 @@
     <ClCompile Include="ICP_Heat_Equation.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="math.cpp" />
+    <ClCompile Include="Rieman_WENO5_IB_Equation.cpp" />
     <ClCompile Include="RK3_Heat_Equation.cpp" />
     <ClCompile Include="WENO5_IB_Equation.cpp" />
   </ItemGroup>
